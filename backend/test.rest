@@ -1,0 +1,6 @@
+POST http://localhost:4000/api/forgot-password
+Content-Type: application/json
+
+{
+  "email": "tonyosunde45@gmail.com"
+}
