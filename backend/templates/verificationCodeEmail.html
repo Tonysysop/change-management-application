@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Verification Code</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      width: 100%;
+      max-width: 600px;
+      margin: 20px auto;
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .header {
+      text-align: center;
+    }
+    .header img {
+      max-width: 100px;
+      height: auto;
+    }
+    .content {
+      margin: 20px 0;
+      text-align: center;
+    }
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: #888888;
+      margin-top: 20px;
+    }
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      margin: 10px 0;
+      background: #007bff;
+      color: #ffffff;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+		.footer img {
+		max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+		}
+
+		.content h3 {
+			background-color: orange;
+      padding: 10px;
+      border-radius: 5px;
+      display: inline-block;
+		}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <img src="cid:logo" alt="Logo">
+    </div>
+    <div class="content">
+      <h2>Forgot Your Password?</h2>
+      <p>We received a request to reset your password. Use the following code to reset it:</p>
+			<br>
+			<p>Please note that the verification code is only valid for 15 minutes."</p>
+      <h3>{{verificationCode}}</h3>
+			<br>
+      <p>If you did not request this, please ignore this email.</p>
+			<br>
+    
+    </div>
+    <div class="footer">
+      <p>&copy; 2024 Ibadan Electricity Distribution Company. All rights reserved.</p>
+      <img src="cid:footer" alt="ibedc footer">
+    </div>
+  </div>
+</body>
+</html>

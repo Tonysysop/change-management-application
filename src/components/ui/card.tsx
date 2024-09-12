@@ -34,9 +34,10 @@ const CardTitle = React.forwardRef<
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
   <h3
+  
     ref={ref}
     className={cn(
-      "text-2xl font-semibold leading-none tracking-tight",
+      " text-orange-500 text-[35px] font-bold ",
       className
     )}
     {...props}
@@ -50,7 +51,7 @@ const CardDescription = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <p
     ref={ref}
-    className={cn("text-sm text-muted-foreground", className)}
+    className={cn("text-xl text-muted-foreground font-bold text-[rgb(0,51,128)]", className)}
     {...props}
   />
 ))
@@ -70,7 +71,7 @@ const CardFooter = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <div
     ref={ref}
-    className={cn("flex items-center p-6 pt-0", className)}
+    className={cn("flex items-center p-6 pt-0 ", className)}
     {...props}
   />
 ))
