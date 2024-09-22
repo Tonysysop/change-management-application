@@ -1,6 +1,8 @@
 import { ChevronFirst, ChevronLast, MoreVertical } from 'lucide-react';
 import { ReactNode, useContext, useState, createContext } from 'react';
 import logo_icon from '../assets/logo.png';
+import { useAuth } from '@/components/AuthContext'; // Import useAuth
+
 
 // Interface for SidebarProps
 interface SidebarProps {
@@ -12,6 +14,8 @@ const SidebarContext = createContext({ expanded: true });
 
 export function Sidebar({ children }: SidebarProps) {
   const [expanded, setExpanded] = useState(true);
+   const { user } = useAuth(); // Get user details from AuthContext
+  
 
   return (
     <aside className="h-screen">
@@ -48,8 +52,8 @@ export function Sidebar({ children }: SidebarProps) {
             }`}
           >
             <div className="leading-4">
-              <h4 className="font-semibold text-gray-500">John Doe</h4>
-              <span className="text-xs text-gray-600">johndoe@gmail.com</span>
+              <h4 className="font-semibold text-gray-500">{user?.fullname || "John Doe"}</h4>
+              <span className="text-xs text-gray-600">{user?.email || "johndoe@email.com"}</span>
             </div>
             <MoreVertical size={20} />
           </div>
@@ -65,14 +69,16 @@ interface SidebarItemProps {
   text: string;
   active?: boolean;
   alert?: boolean;
+  onClick?: () => void;
 }
 
-export function SidebarItem({ icon, text, active, alert }: SidebarItemProps) {
+export function SidebarItem({ icon, text, active, alert, onClick }: SidebarItemProps) {
   // Consume expanded state from SidebarContext
   const { expanded } = useContext(SidebarContext);
 
   return (
     <li
+      onClick={onClick} // Add onClick handler to the list item
       className={`
         relative flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer

@@ -1,22 +1,39 @@
-import './App.css';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Login from './pages/Login';
-import Dashboard from './pages/Dashboard' // Assuming you have this component
 import { ThemeProvider } from '@/components/theme-provider';
-import { ModeToggle } from '@/components/mode-toggle'
+import { ModeToggle } from '@/components/mode-toggle';
+import Dashboard from './pages/Dashboard';
+import NotFound from './pages/NotFound';
+import Signup from './pages/Signup'
+import { AuthProvider } from './components/AuthContext';
+import ProtectedRoute from '@/components/ProtectedRoute'
+
+
+
 
 function App() {
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
-        <BrowserRouter>
-          {/* ModeToggle should be outside of Routes */}
-          <ModeToggle/>
-          <Routes >
+    <AuthProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+        <Router>
+          <ModeToggle />
+          <Routes>
+            <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Login />} />
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route
+            path="/dashboard"
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
+            <Route path="/Signup" element={<Signup />} />
           </Routes>
-        </BrowserRouter>
-    </ThemeProvider>
+        </Router>
+      </ThemeProvider>
+    </AuthProvider>
+  
   );
 }
 
