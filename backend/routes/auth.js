@@ -159,10 +159,13 @@ router.post('/login', async (req, res) => {
 
 
 
-// Forgot Password (Step 1: Request a Verification Code)
 router.post('/forgot-password', async (req, res) => {
   try {
     const { email } = req.body;
+    if (!email || !/^\S+@\S+\.\S+$/.test(email)) {
+      return res.status(400).json({ message: 'Invalid email format' });
+    }
+
     const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
@@ -173,13 +176,15 @@ router.post('/forgot-password', async (req, res) => {
     user.verificationCodeExpires = Date.now() + 15 * 60 * 1000; // Code valid for 15 minutes
 
     await user.save();
-    await sendVerificationCode(email, verificationCode);
+    await sendVerificationCode(email, verificationCode); // Ensure this function handles email sending
 
     res.status(200).json({ message: 'Verification code sent' });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error(error);
+    res.status(500).json({ error: 'Server error, please try again later.' });
   }
 });
+
 
 // Verify Code (Step 2: Verify the Code)
 router.post('/verify-code', async (req, res) => {
@@ -205,7 +210,12 @@ router.post('/verify-code', async (req, res) => {
 // Reset Password (Step 3: Reset the Password)
 router.post('/reset-password', async (req, res) => {
   try {
-    const { email, code, password } = req.body;
+    const { email, code, password, confirmpassword } = req.body;
+
+    // Validate password and confirmPassword
+    if (!password || !confirmpassword || password !== confirmpassword) {
+      return res.status(401).json({ message: 'Passwords do not match' });
+    }
 
     const user = await User.findOne({
       email,
@@ -227,7 +237,7 @@ router.post('/reset-password', async (req, res) => {
     await user.save();
     res.status(200).json({ message: 'Password has been reset' });
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    res.status(500).json({ error: error.message });
   }
 });
 

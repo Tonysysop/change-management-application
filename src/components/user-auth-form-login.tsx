@@ -16,6 +16,8 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import axios, { AxiosError } from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '@/components/AuthContext';
+import { TriangleAlert } from 'lucide-react';
+import { PartyPopper } from 'lucide-react';
 
 
 
@@ -120,18 +122,25 @@ export function UserAuthForm({ className, setIsDrawerOpen, ...props }: UserAuthF
 
   return (
     <div className={cn("grid gap-6", className)} {...props}>
-      {/* Conditionally render the Alert if there's an error */}
+      {/* Conditionally render the error message */}
       {error && (
         <Alert variant="destructive" className="mb-1 p-4 text-xs">
-          <AlertTitle >Error !!</AlertTitle>
-          <AlertDescription className="text-xs">{error}</AlertDescription>
+          <AlertTitle></AlertTitle>
+          <AlertDescription className="text-xs flex items-center">
+            <TriangleAlert className="mr-2" /> {/* Add margin to the right of the icon */}
+            {error}
+          </AlertDescription>
         </Alert>
       )}
 
+      {/* Conditionally render the success message */}
       {success && (
-        <Alert variant="success" className="mt-2">
-          <AlertTitle>Success!!!</AlertTitle>
-          <AlertDescription>{success}</AlertDescription>
+        <Alert variant="success" className="mb-1 p-4 text-xs">
+          <AlertTitle></AlertTitle>
+          <AlertDescription className="text-xs flex items-center">
+            <PartyPopper className="mr-2" />
+            {success}
+          </AlertDescription>
         </Alert>
       )}
       
