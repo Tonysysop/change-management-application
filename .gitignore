@@ -32,3 +32,4 @@ docker-compose.yml
 backend/.env
 backend/.env
 backend/.env
+backend/node_modules/@mapbox/node-pre-gyp/lib/rebuild.js
